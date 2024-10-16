@@ -27,12 +27,10 @@ public class EntidadeOperadora {
     private double saldoAcao;
     private double saldoTituloDivida;
 
-    public EntidadeOperadora(long identificador, String nome, double autorizadoAcao, double saldoAcao, double saldoTituloDivida){
+    public EntidadeOperadora(long identificador, String nome, double autorizadoAcao){
         this.identificador = identificador;
         this.nome = nome;
         this.autorizadoAcao = autorizadoAcao;
-        this.saldoAcao = saldoAcao;
-        this.saldoTituloDivida = saldoTituloDivida;
     }
 
     public long getIdentificador() {
@@ -46,14 +44,16 @@ public class EntidadeOperadora {
     public double getAutorizadoAcao() {
         return autorizadoAcao;
     }
-
+    
     public double getSaldoAcao() {
-        return saldoAcao;
+    	return saldoAcao;
+    }
+    
+    public double getSaldoTituloDivida() {
+    	return saldoTituloDivida;
     }
 
-    public double getSaldoTituloDivida() {
-        return saldoTituloDivida;
-    }
+
     public void setNome(String nome) {
         this.nome = nome;
     }
@@ -62,28 +62,20 @@ public class EntidadeOperadora {
         this.autorizadoAcao = autorizadoAcao;
     }
 
-    public void setSaldoAcao(double saldoAcao) {
-        this.saldoAcao = saldoAcao;
-    }
-
-    public void setSaldoTituloDivida(double saldoTituloDivida) {
-        this.saldoTituloDivida = saldoTituloDivida;
-    }
-
     public void creditarSaldoAcao(double valor) {
-        return saldoAcao + valor;
+        this.saldoAcao += valor;
     }
 
     public void debitarSaldoAcao(double valor) {
-        return saldoAcao - valor;
+        this.saldoAcao -= valor;
     }
 
     public void creditarSaldoTituloDivida(double valor) {
-        return saldoTituloDivida + valor;
+        this.saldoTituloDivida += valor;
     }
 
     public void debitarSaldoTituloDivida(double valor) {
-        return saldoTituloDivida - valor;
+        this.saldoTituloDivida -= valor;
     }
 
 
