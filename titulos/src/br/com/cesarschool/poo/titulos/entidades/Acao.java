@@ -15,7 +15,7 @@ public class Acao extends Ativo {
     private double valorUnitario;
 
     public Acao(int identificador, String nome, LocalDate dateDeValidade, double valorUnitario){
-        super(int identificador, String nome, LocalDate dateDeValidade);
+        super(identificador, nome, dateDeValidade);
         this.valorUnitario = valorUnitario;
     }
 
