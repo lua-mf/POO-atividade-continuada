@@ -1,4 +1,7 @@
 package br.com.cesarschool.poo.titulos.entidades;
+
+import java.time.LocalDate;
+
 /*
  * Esta classe deve herdar de Ativo.
  * E deve ter os seguintes atributos:
