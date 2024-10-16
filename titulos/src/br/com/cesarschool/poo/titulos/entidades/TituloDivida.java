@@ -1,14 +1,13 @@
-package br.com.cesarschool.poo.titulos.entidades;
 /*
  * Esta classe deve herdar de Ativo.
  * E deve ter os seguintes atributos:
  * taxaJuros, do tipo double.
  * 
- * Deve ter um construtor público que inicializa os atributos, 
- * e métodos set/get públicos para os atributos.
+ * Deve ter um construtor pï¿½blico que inicializa os atributos, 
+ * e mï¿½todos set/get pï¿½blicos para os atributos.
  * 
- * Deve ter um método público double calcularPrecoTransacao(double montante): o preço 
- * da transação é montante vezes (1 - taxaJuros/100.0).
+ * Deve ter um mï¿½todo pï¿½blico double calcularPrecoTransacao(double montante): o preï¿½o 
+ * da transaï¿½ï¿½o ï¿½ montante vezes (1 - taxaJuros/100.0).
  */
 public class TituloDivida {
 

@@ -4,12 +4,30 @@ package br.com.cesarschool.poo.titulos.entidades;
  * E deve ter os seguintes atributos:
  * valorUnitario, do tipo double.
  * 
- * Deve ter um construtor público que inicializa os atributos, 
- * e métodos set/get públicos para os atributos.
+ * Deve ter um construtor pï¿½blico que inicializa os atributos, 
+ * e mï¿½todos set/get pï¿½blicos para os atributos.
  * 
- * Deve ter um método público double calcularPrecoTransacao(double montante): o preço 
- * da transação é o produto do montante pelo valorUnitario.
+ * Deve ter um mï¿½todo pï¿½blico double calcularPrecoTransacao(double montante): o preï¿½o 
+ * da transaï¿½ï¿½o ï¿½ o produto do montante pelo valorUnitario.
  */
-public class Acao {
+public class Acao extends Ativo {
 
+    private double valorUnitario;
+
+    public Acao(int identificador, String nome, LocalDate dateDeValidade, double valorUnitario){
+        super(int identificador, String nome, LocalDate dateDeValidade);
+        this.valorUnitario = valorUnitario;
+    }
+
+    public double getValorUnitario() {
+        return valorUnitario;
+    }
+
+    public void setValorUnitario(double valorUnitario) {
+        this.valorUnitario = valorUnitario;
+    }
+
+    public double calcularPrecoTransacao(double montante){
+        return montante*valorUnitario;
+    }
 }
