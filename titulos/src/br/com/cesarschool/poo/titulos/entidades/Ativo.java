@@ -1,5 +1,7 @@
 package br.com.cesarschool.poo.titulos.entidades;
 
+import java.time.LocalDate;
+
 /*
  * Esta classe deve ter os seguintes atributos:
  * identificador, do tipo int
@@ -16,7 +18,7 @@ public class Ativo {
     private String nome;
     private LocalDate dataDeValidade;
 
-    public Ativo(int identificador, String nome, LocalDate dateDeValidade){
+    public Ativo(int identificador, String nome, LocalDate dataDeValidade){
         this.identificador = identificador;
         this.nome = nome;
         this.dataDeValidade = dataDeValidade;
