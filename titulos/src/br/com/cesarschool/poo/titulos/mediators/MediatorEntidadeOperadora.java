@@ -61,7 +61,7 @@ public class MediatorEntidadeOperadora {
         // Construtor privado
     }
 
-    public static MediatorEntidadeOperadora getInstanciaUnica() {
+    public static MediatorEntidadeOperadora getInstancia() {
         if (instanciaUnica == null) {
             instanciaUnica = new MediatorEntidadeOperadora();
         }
