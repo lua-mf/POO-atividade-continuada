@@ -1,19 +1,20 @@
 package org.cesarschool.telas;
 
 public class EntidadeMediator {
+	private EntidadeDAO dao = new EntidadeDAO();
+	
 	public String incluir(Entidade ent) {
 		String msg = validar(ent);
 		if (msg == null) {
-			// incluir no DAO
+			dao.incluir(ent);
 		}
 		return msg;
 	}
 	public String alterar(Entidade ent) {
 		String msg = validar(ent);
 		if (msg == null) {
-			// alterar no DAO
+			 dao.alterar(ent);
 		}
-		
 		return msg;		
 	}
 	private String validar(Entidade ent) {
