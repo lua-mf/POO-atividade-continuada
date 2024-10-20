@@ -13,6 +13,7 @@ public class EntidadeMediator {
 		if (msg == null) {
 			// alterar no DAO
 		}
+		
 		return msg;		
 	}
 	private String validar(Entidade ent) {
