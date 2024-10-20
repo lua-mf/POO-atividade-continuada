@@ -62,6 +62,22 @@ public class RepositorioTransacao {
 	    // Converte a lista em um array de Transacao e retorna
 	    return transacoesEncontradas.toArray(new Transacao[0]);
 	}
+	
+	public Transacao[] buscarPorEntidadeDevedora(int identificadorEntidadeDebito) {
+		List<String> linhas = lerArquivo();
+	    List<Transacao> transacoesEncontradas = new ArrayList<>();
+	    
+	    for (String linha : linhas) {
+	        String[] dados = linha.split(";");
+	        
+	        if (Integer.parseInt(dados[0]) == identificadorEntidadeDebito) { 
+	            Transacao transacao = parseTransacao(dados);
+	            transacoesEncontradas.add(transacao);
+	        }
+	    }
+	    
+	    return transacoesEncontradas.toArray(new Transacao[0]);
+	}
 
 	
 	private List<String> lerArquivo() {
