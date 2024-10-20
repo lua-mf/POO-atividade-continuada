@@ -1,7 +1,12 @@
 package br.com.cesarschool.poo.titulos.mediators;
 
+import br.com.cesarschool.poo.titulos.entidades.TituloDivida;
+import br.com.cesarschool.poo.titulos.repositorios.RepositorioTituloDivida;
+
+import java.time.LocalDate;
 /*
  * Deve ser um singleton.
+
  *
  * Deve ter um atributo repositorioTituloDivida, do tipo RepositorioTituloDivida, que deve
  * ser inicializado na sua declaração. Este atributo será usado exclusivamente
@@ -52,9 +57,6 @@ package br.com.cesarschool.poo.titulos.mediators;
  * que ele retornar. Se o identificador for inválido, retornar null.
  */
 
-import br.com.cesarschool.poo.titulos.entidades.TituloDivida;
-import java.time.LocalDate;
-
 public class MediatorTituloDivida {
 
     private final RepositorioTituloDivida repositorioTituloDivida = new RepositorioTituloDivida();
@@ -85,12 +87,8 @@ public class MediatorTituloDivida {
         }
 
         LocalDate dataAtual = LocalDate.now();
-        if (titulo.getDataValidade().isBefore(dataAtual.plusDays(180))) {
+        if (titulo.getDataDeValidade().isBefore(dataAtual.plusDays(180))) {
             return "Data de validade deve ter pelo menos 180 dias à frente da data atual.";
-        }
-
-        if (titulo.getValorUnitario() <= 0) {
-            return "Valor unitário deve ser maior que zero.";
         }
 
         if (titulo.getTaxaJuros() < 0) {

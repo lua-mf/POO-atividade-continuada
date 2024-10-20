@@ -2,6 +2,7 @@ package br.com.cesarschool.poo.titulos.entidades;
 
 /*
  * Esta classe deve herdar de Ativo.
+
  * E deve ter os seguintes atributos:
  * taxaJuros, do tipo double.
  * 
