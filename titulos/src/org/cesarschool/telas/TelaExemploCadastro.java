@@ -1,204 +1,169 @@
 package org.cesarschool.telas;
 
-import org.eclipse.swt.widgets.Display;
-import org.eclipse.swt.widgets.Shell;
-import org.eclipse.swt.widgets.Label;
-
-import javax.swing.JOptionPane;
-
-import org.eclipse.swt.SWT;
-import org.eclipse.swt.widgets.Text;
-import org.eclipse.swt.widgets.Button;
-import org.eclipse.swt.events.MouseAdapter;
-import org.eclipse.swt.events.MouseEvent;
-import org.eclipse.swt.events.SelectionAdapter;
-import org.eclipse.swt.events.SelectionEvent;
+import javax.swing.*;
+import java.awt.*;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 
 public class TelaExemploCadastro {
-	protected Shell shlTelaDeCdastro;
-	private static EntidadeMediator mediator = new EntidadeMediator();	
-	private Text txtCodigo;
-	private Text txtNome;
-	private Text txtRenda;
 
-	/**
-	 * Launch the application.
-	 * @param args
-	 */
+	private JFrame frame;  // Janela principal
+	private JTextField txtCodigo;  // Campo de texto para o código
+	private JTextField txtNome;    // Campo de texto para o nome
+	private JTextField txtRenda;   // Campo de texto para a renda
+	private JButton btnNovo, btnBuscar, btnIncluirAlterar, btnCancelar, btnLimpar;  // Botões para ações
+	private static EntidadeMediator mediator = new EntidadeMediator();  // Instância do mediator
+
 	public static void main(String[] args) {
-		try {
-			TelaExemploCadastro window = new TelaExemploCadastro();
-			window.open();
-		} catch (Exception e) {
-			e.printStackTrace();
-		}
-	}
-
-	/**
-	 * Open the window.
-	 */
-	public void open() {
-		Display display = Display.getDefault();
-		createContents();
-		shlTelaDeCdastro.open();
-		shlTelaDeCdastro.layout();
-		while (!shlTelaDeCdastro.isDisposed()) {
-			if (!display.readAndDispatch()) {
-				display.sleep();
+		EventQueue.invokeLater(() -> {
+			try {
+				TelaExemploCadastro window = new TelaExemploCadastro();
+				window.frame.setVisible(true);  // Tornando a janela visível
+			} catch (Exception e) {
+				e.printStackTrace();
 			}
-		}
+		});
 	}
 
-	/**
-	 * Create contents of the window.
-	 */
-	protected void createContents() {
-		shlTelaDeCdastro = new Shell();
-		shlTelaDeCdastro.setSize(584, 323);
-		shlTelaDeCdastro.setText("Tela de cdastro");
-		
-		Label lblCdigo = new Label(shlTelaDeCdastro, SWT.NONE);
-		lblCdigo.setBounds(42, 41, 70, 20);
-		lblCdigo.setText("C\u00F3digo");
-		
-		txtCodigo = new Text(shlTelaDeCdastro, SWT.BORDER);
-		txtCodigo.setToolTipText("Digite o c\u00F3digo");
-		txtCodigo.setBounds(110, 41, 100, 26);
-		Button btnNovo = new Button(shlTelaDeCdastro, SWT.NONE);
-		
-		btnNovo.setBounds(237, 41, 90, 30);
-		btnNovo.setText("Novo");
-		
-		Button btnBuscar = new Button(shlTelaDeCdastro, SWT.NONE);
+	public TelaExemploCadastro() {
+		initialize();  // Inicializa os componentes
+	}
 
-		btnBuscar.setBounds(345, 41, 90, 30);
-		btnBuscar.setText("Buscar");
-		
-		Label lblNome = new Label(shlTelaDeCdastro, SWT.NONE);
-		lblNome.setBounds(42, 101, 70, 20);
-		lblNome.setText("Nome");
-		
-		txtNome = new Text(shlTelaDeCdastro, SWT.BORDER);
-		txtNome.setEnabled(false);
-		txtNome.setBounds(110, 101, 225, 26);
-		
-		Label lblRenda = new Label(shlTelaDeCdastro, SWT.NONE);
-		lblRenda.setBounds(42, 162, 70, 20);
-		lblRenda.setText("Renda");
-		
-		txtRenda = new Text(shlTelaDeCdastro, SWT.BORDER);
-		txtRenda.setEnabled(false);
-		txtRenda.setBounds(110, 162, 118, 26);
-		
-		Button btnIncluirAlterar = new Button(shlTelaDeCdastro, SWT.NONE);
+	private void initialize() {
+		frame = new JFrame();  // Criação da janela principal
+		frame.setBounds(100, 100, 600, 400);  // Define o tamanho da janela
+		frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);  // Fecha o programa ao fechar a janela
+		frame.getContentPane().setLayout(null);  // Layout absoluto
 
-		btnIncluirAlterar.setEnabled(false);
-		btnIncluirAlterar.setBounds(138, 223, 90, 30);
-		btnIncluirAlterar.setText("Incluir");
-		
-		Button btnCancelar = new Button(shlTelaDeCdastro, SWT.NONE);
+		// Definição e posicionamento dos elementos
+		JLabel lblCodigo = new JLabel("Código:");
+		lblCodigo.setBounds(36, 46, 70, 20);
+		frame.getContentPane().add(lblCodigo);
 
+		txtCodigo = new JTextField();
+		txtCodigo.setBounds(129, 46, 113, 26);
+		frame.getContentPane().add(txtCodigo);
+
+		btnNovo = new JButton("Novo");
+		btnNovo.setBounds(264, 42, 90, 30);
+		frame.getContentPane().add(btnNovo);
+
+		btnBuscar = new JButton("Buscar");
+		btnBuscar.setBounds(360, 42, 90, 30);
+		frame.getContentPane().add(btnBuscar);
+
+		JLabel lblNome = new JLabel("Nome:");
+		lblNome.setBounds(36, 109, 70, 20);
+		frame.getContentPane().add(lblNome);
+
+		txtNome = new JTextField();
+		txtNome.setEnabled(false);  // Desabilitado até que seja necessário
+		txtNome.setBounds(129, 109, 225, 26);
+		frame.getContentPane().add(txtNome);
+
+		JLabel lblRenda = new JLabel("Renda:");
+		lblRenda.setBounds(36, 167, 70, 20);
+		frame.getContentPane().add(lblRenda);
+
+		txtRenda = new JTextField();
+		txtRenda.setEnabled(false);  // Desabilitado até que seja necessário
+		txtRenda.setBounds(129, 164, 113, 26);
+		frame.getContentPane().add(txtRenda);
+
+		btnIncluirAlterar = new JButton("Incluir");
+		btnIncluirAlterar.setEnabled(false);  // Inicialmente desabilitado
+		btnIncluirAlterar.setBounds(131, 258, 90, 30);
+		frame.getContentPane().add(btnIncluirAlterar);
+
+		btnCancelar = new JButton("Cancelar");
 		btnCancelar.setEnabled(false);
-		btnCancelar.setBounds(248, 223, 90, 30);
-		btnCancelar.setText("Cancelar");
-		
-		Button btnLimpar = new Button(shlTelaDeCdastro, SWT.NONE);
+		btnCancelar.setBounds(239, 258, 90, 30);
+		frame.getContentPane().add(btnCancelar);
 
-		btnLimpar.setBounds(363, 223, 90, 30);
-		btnLimpar.setText("Limpar");
-		btnNovo.addMouseListener(new MouseAdapter() { 
-			@Override
-			public void mouseDown(MouseEvent e) {
-				Entidade ent = TelaExemploCadastro.mediator.buscar(txtCodigo.getText());
-				if (ent != null) {
-					JOptionPane.showMessageDialog(null, 
-					"Entidade já existente!");
-				} else {
-					btnIncluirAlterar.setEnabled(true);
-					btnCancelar.setEnabled(true);
-					txtNome.setEnabled(true);
-					txtRenda.setEnabled(true);
-					btnNovo.setEnabled(false);
-					btnBuscar.setEnabled(false);
-					txtCodigo.setEnabled(false);
-				}
+		btnLimpar = new JButton("Limpar");
+		btnLimpar.setBounds(347, 258, 90, 30);
+		frame.getContentPane().add(btnLimpar);
+
+		// Ações dos botões
+		btnNovo.addActionListener(e -> {
+			Entidade ent = mediator.buscar(txtCodigo.getText());
+			if (ent != null) {
+				JOptionPane.showMessageDialog(frame, "Entidade já existente!");
+			} else {
+				habilitarCampos(true);
+				btnIncluirAlterar.setEnabled(true);
+				btnCancelar.setEnabled(true);
+				btnNovo.setEnabled(false);
+				btnBuscar.setEnabled(false);
+				txtCodigo.setEnabled(false);
 			}
 		});
-		btnBuscar.addMouseListener(new MouseAdapter() {
-			@Override
-			public void mouseDown(MouseEvent e) {
-				Entidade ent = TelaExemploCadastro.mediator.buscar(txtCodigo.getText());
-				if (ent == null) {
-					JOptionPane.showMessageDialog(null, 
-					"Entidade não existente!");
-				} else {
-					txtNome.setText(ent.getNome());
-					txtRenda.setText(ent.getRenda() + "");
-					btnIncluirAlterar.setText("Alterar");
-					btnIncluirAlterar.setEnabled(true);
-					btnCancelar.setEnabled(true);
-					txtNome.setEnabled(true);
-					txtRenda.setEnabled(true);
-					btnNovo.setEnabled(false);
-					btnBuscar.setEnabled(false);
-					txtCodigo.setEnabled(false);
-				}			
+
+		btnBuscar.addActionListener(e -> {
+			Entidade ent = mediator.buscar(txtCodigo.getText());
+			if (ent == null) {
+				JOptionPane.showMessageDialog(frame, "Entidade não existente!");
+			} else {
+				txtNome.setText(ent.getNome());
+				txtRenda.setText(String.valueOf(ent.getRenda()));
+				btnIncluirAlterar.setText("Alterar");
+				habilitarCampos(true);
+				btnIncluirAlterar.setEnabled(true);
+				btnCancelar.setEnabled(true);
+				btnNovo.setEnabled(false);
+				btnBuscar.setEnabled(false);
+				txtCodigo.setEnabled(false);
 			}
 		});
-		btnIncluirAlterar.addMouseListener(new MouseAdapter() {
-			@Override
-			public void mouseDown(MouseEvent e) {
-				Entidade ent = new Entidade(txtCodigo.getText(), txtNome.getText(),
-						Double.parseDouble(txtRenda.getText()));
-				String msg = null;
-				if (btnIncluirAlterar.getText().equals("Incluir")) {
-					msg = mediator.incluir(ent);
-				} else {
-					msg = mediator.alterar(ent);
-				}
-				if (msg != null) {
-					JOptionPane.showMessageDialog(null, 
-					msg);					
-				} else {
-					btnIncluirAlterar.setEnabled(false);
-					btnCancelar.setEnabled(false);
-					txtNome.setEnabled(false);
-					txtRenda.setEnabled(false);
-					btnNovo.setEnabled(true);
-					btnBuscar.setEnabled(true);
-					txtCodigo.setEnabled(true);
-					txtCodigo.setText("");
-					txtRenda.setText("");
-					txtNome.setText("");
-					btnIncluirAlterar.setText("Incluir");
-				}
+
+		btnIncluirAlterar.addActionListener(e -> {
+			Entidade ent = new Entidade(txtCodigo.getText(), txtNome.getText(), Double.parseDouble(txtRenda.getText()));
+			String msg;
+			if (btnIncluirAlterar.getText().equals("Incluir")) {
+				msg = mediator.incluir(ent);
+			} else {
+				msg = mediator.alterar(ent);
 			}
-		});
-		btnCancelar.addMouseListener(new MouseAdapter() {
-			@Override
-			public void mouseDown(MouseEvent e) {
-				btnIncluirAlterar.setEnabled(false);
-				btnCancelar.setEnabled(false);
-				txtNome.setEnabled(false);
-				txtRenda.setEnabled(false);
+			if (msg != null) {
+				JOptionPane.showMessageDialog(frame, msg);
+			} else {
+				resetarCampos();
+				habilitarCampos(false);
 				btnNovo.setEnabled(true);
 				btnBuscar.setEnabled(true);
 				txtCodigo.setEnabled(true);
-				txtCodigo.setText("");
-				txtRenda.setText("");
-				txtNome.setText("");
 				btnIncluirAlterar.setText("Incluir");
 			}
 		});
-		btnLimpar.addSelectionListener(new SelectionAdapter() {
-			@Override
-			public void widgetSelected(SelectionEvent e) {
-				if (txtCodigo.isEnabled()) {
-					txtCodigo.setText("");
-				}
-				txtRenda.setText("");
-				txtNome.setText("");
-			}
+
+		btnCancelar.addActionListener(e -> {
+			resetarCampos();
+			habilitarCampos(false);
+			btnNovo.setEnabled(true);
+			btnBuscar.setEnabled(true);
+			txtCodigo.setEnabled(true);
+			btnIncluirAlterar.setText("Incluir");
 		});
+
+		btnLimpar.addActionListener(e -> {
+			if (txtCodigo.isEnabled()) {
+				txtCodigo.setText("");
+			}
+			txtNome.setText("");
+			txtRenda.setText("");
+		});
+	}
+
+	// Habilita ou desabilita os campos de texto
+	private void habilitarCampos(boolean habilitar) {
+		txtNome.setEnabled(habilitar);
+		txtRenda.setEnabled(habilitar);
+	}
+
+	// Limpa todos os campos de texto
+	private void resetarCampos() {
+		txtNome.setText("");
+		txtRenda.setText("");
+		txtCodigo.setText("");
 	}
 }

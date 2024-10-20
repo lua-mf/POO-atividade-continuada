@@ -1,209 +1,170 @@
 package org.cesarschool.telas;
 
-import org.eclipse.swt.widgets.Display;
-import org.eclipse.swt.widgets.Shell;
-import org.eclipse.swt.widgets.Label;
-
-import javax.swing.JOptionPane;
-
-import org.eclipse.swt.SWT;
-import org.eclipse.swt.widgets.Text;
-import org.eclipse.swt.widgets.Button;
-import org.eclipse.swt.events.MouseAdapter;
-import org.eclipse.swt.events.MouseEvent;
+import javax.swing.*;
+import java.awt.*;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 
 public class TelaExemploEntidade {
-	protected Shell shell;
-	private EntidadeMediator mediator = new EntidadeMediator(); 
-	private Text txtCodigo;
-	private Button btnNovo;
-	private Button btnBuscar;
-	private Label lblNome;
-	private Text txtNome;
-	private Label lblRenda;
-	private Text txtRenda;
-	private Button btnIncluirAlterar;
-	private Button btnCancelar;
-	private Button btnLimpar;
 
-	/**
-	 * Launch the application.
-	 * @param args
-	 */
+	private JFrame frame;
+	private JTextField txtCodigo;
+	private JTextField txtNome;
+	private JTextField txtRenda;
+	private JButton btnNovo;
+	private JButton btnBuscar;
+	private JButton btnIncluirAlterar;
+	private JButton btnCancelar;
+	private JButton btnLimpar;
+	private EntidadeMediator mediator = new EntidadeMediator();
+
 	public static void main(String[] args) {
-		try {
-			TelaExemploEntidade window = new TelaExemploEntidade();
-			window.open();
-		} catch (Exception e) {
-			e.printStackTrace();
-		}
-	}
-
-	/**
-	 * Open the window.
-	 */
-	public void open() {
-		Display display = Display.getDefault();
-		createContents();
-		shell.open();
-		shell.layout();
-		while (!shell.isDisposed()) {
-			if (!display.readAndDispatch()) {
-				display.sleep();
+		EventQueue.invokeLater(() -> {
+			try {
+				TelaExemploEntidade window = new TelaExemploEntidade();
+				window.frame.setVisible(true);
+			} catch (Exception e) {
+				e.printStackTrace();
 			}
-		}
+		});
 	}
 
-	/**
-	 * Create contents of the window.
-	 */
-	protected void createContents() {
-		shell = new Shell();
-		shell.setSize(607, 369);
-		shell.setText("SWT Application");
-		
-		Label lblCdigo = new Label(shell, SWT.NONE);
-		lblCdigo.setBounds(36, 46, 70, 20);
-		lblCdigo.setText("C\u00F3digo");
-		
-		txtCodigo = new Text(shell, SWT.BORDER);
+	public TelaExemploEntidade() {
+		initialize();
+	}
+
+	private void initialize() {
+		frame = new JFrame();
+		frame.setBounds(100, 100, 600, 400);
+		frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+		frame.getContentPane().setLayout(null);
+
+		JLabel lblCodigo = new JLabel("Código:");
+		lblCodigo.setBounds(36, 46, 70, 20);
+		frame.getContentPane().add(lblCodigo);
+
+		txtCodigo = new JTextField();
 		txtCodigo.setBounds(129, 46, 113, 26);
-		
-		btnNovo = new Button(shell, SWT.NONE);
+		frame.getContentPane().add(txtCodigo);
 
+		btnNovo = new JButton("Novo");
 		btnNovo.setBounds(264, 42, 90, 30);
-		btnNovo.setText("Novo");
-		
-		btnBuscar = new Button(shell, SWT.NONE);
+		frame.getContentPane().add(btnNovo);
 
+		btnBuscar = new JButton("Buscar");
 		btnBuscar.setBounds(360, 42, 90, 30);
-		btnBuscar.setText("Buscar");
-		
-		lblNome = new Label(shell, SWT.NONE);
+		frame.getContentPane().add(btnBuscar);
+
+		JLabel lblNome = new JLabel("Nome:");
 		lblNome.setBounds(36, 109, 70, 20);
-		lblNome.setText("Nome");
-		
-		txtNome = new Text(shell, SWT.BORDER);
+		frame.getContentPane().add(lblNome);
+
+		txtNome = new JTextField();
 		txtNome.setEnabled(false);
 		txtNome.setBounds(129, 109, 225, 26);
-		
-		lblRenda = new Label(shell, SWT.NONE);
+		frame.getContentPane().add(txtNome);
+
+		JLabel lblRenda = new JLabel("Renda:");
 		lblRenda.setBounds(36, 167, 70, 20);
-		lblRenda.setText("Renda");
-		
-		txtRenda = new Text(shell, SWT.BORDER);
+		frame.getContentPane().add(lblRenda);
+
+		txtRenda = new JTextField();
 		txtRenda.setEnabled(false);
 		txtRenda.setBounds(129, 164, 113, 26);
-		
-		btnIncluirAlterar = new Button(shell, SWT.NONE);
+		frame.getContentPane().add(txtRenda);
 
+		btnIncluirAlterar = new JButton("Incluir");
 		btnIncluirAlterar.setEnabled(false);
 		btnIncluirAlterar.setBounds(131, 258, 90, 30);
-		btnIncluirAlterar.setText("Incluir");
-		
-		btnCancelar = new Button(shell, SWT.NONE);
+		frame.getContentPane().add(btnIncluirAlterar);
 
+		btnCancelar = new JButton("Cancelar");
 		btnCancelar.setEnabled(false);
 		btnCancelar.setBounds(239, 258, 90, 30);
-		btnCancelar.setText("Cancelar");
-		
-		btnLimpar = new Button(shell, SWT.NONE);
+		frame.getContentPane().add(btnCancelar);
 
+		btnLimpar = new JButton("Limpar");
 		btnLimpar.setBounds(347, 258, 90, 30);
-		btnLimpar.setText("Limpar");
-		btnNovo.addMouseListener(new MouseAdapter() {
-			@Override
-			public void mouseDown(MouseEvent e) {
-				Entidade ent = mediator.buscar(txtCodigo.getText());
-				if (ent != null) {
-					JOptionPane.showMessageDialog(null, 
-					"Entidade já existente!");
-				} else {
-					btnIncluirAlterar.setEnabled(true);
-					btnCancelar.setEnabled(true);
-					txtNome.setEnabled(true);
-					txtRenda.setEnabled(true);
-					btnNovo.setEnabled(false);
-					btnBuscar.setEnabled(false);
-					txtCodigo.setEnabled(false);
-				}
+		frame.getContentPane().add(btnLimpar);
+
+		btnNovo.addActionListener(e -> {
+			Entidade ent = mediator.buscar(txtCodigo.getText());
+			if (ent != null) {
+				JOptionPane.showMessageDialog(frame, "Entidade já existente!");
+			} else {
+				habilitarCampos(true);
+				btnIncluirAlterar.setEnabled(true);
+				btnCancelar.setEnabled(true);
+				btnNovo.setEnabled(false);
+				btnBuscar.setEnabled(false);
+				txtCodigo.setEnabled(false);
 			}
 		});
-		btnBuscar.addMouseListener(new MouseAdapter() {
-			@Override
-			public void mouseDown(MouseEvent e) {
-				Entidade ent = mediator.buscar(txtCodigo.getText());
-				if (ent == null) {
-					JOptionPane.showMessageDialog(null, 
-					"Entidade não existente!");
-				} else {
-					txtNome.setText(ent.getNome());
-					txtRenda.setText(ent.getRenda() + "");
-					btnIncluirAlterar.setText("Alterar");
-					btnIncluirAlterar.setEnabled(true);
-					btnCancelar.setEnabled(true);
-					txtNome.setEnabled(true);
-					txtRenda.setEnabled(true);
-					btnNovo.setEnabled(false);
-					btnBuscar.setEnabled(false);
-					txtCodigo.setEnabled(false);
-				}
+
+		btnBuscar.addActionListener(e -> {
+			Entidade ent = mediator.buscar(txtCodigo.getText());
+			if (ent == null) {
+				JOptionPane.showMessageDialog(frame, "Entidade não existente!");
+			} else {
+				txtNome.setText(ent.getNome());
+				txtRenda.setText(String.valueOf(ent.getRenda()));
+				btnIncluirAlterar.setText("Alterar");
+				habilitarCampos(true);
+				btnIncluirAlterar.setEnabled(true);
+				btnCancelar.setEnabled(true);
+				btnNovo.setEnabled(false);
+				btnBuscar.setEnabled(false);
+				txtCodigo.setEnabled(false);
 			}
 		});
-		btnIncluirAlterar.addMouseListener(new MouseAdapter() {
-			@Override
-			public void mouseDown(MouseEvent e) {
-				Entidade ent = new Entidade(txtCodigo.getText(), txtNome.getText(),
-						Double.parseDouble(txtRenda.getText()));
-				String msg = null;
-				if (btnIncluirAlterar.getText().equals("Incluir")) {
-					msg = mediator.incluir(ent);
-				} else {
-					msg = mediator.alterar(ent);
-				}
-				if (msg != null) {
-					JOptionPane.showMessageDialog(null, 
-					msg);					
-				} else {
-					btnIncluirAlterar.setEnabled(false);
-					btnCancelar.setEnabled(false);
-					txtNome.setEnabled(false);
-					txtRenda.setEnabled(false);
-					btnNovo.setEnabled(true);
-					btnBuscar.setEnabled(true);
-					txtCodigo.setEnabled(true);
-					txtCodigo.setText("");
-					txtRenda.setText("");
-					txtNome.setText("");
-					btnIncluirAlterar.setText("Incluir");
-				}
+
+		btnIncluirAlterar.addActionListener(e -> {
+			Entidade ent = new Entidade(txtCodigo.getText(), txtNome.getText(), Double.parseDouble(txtRenda.getText()));
+			String msg;
+			if (btnIncluirAlterar.getText().equals("Incluir")) {
+				msg = mediator.incluir(ent);
+			} else {
+				msg = mediator.alterar(ent);
 			}
-		});		
-		btnCancelar.addMouseListener(new MouseAdapter() {
-			@Override
-			public void mouseDown(MouseEvent e) {
-				btnIncluirAlterar.setEnabled(false);
-				btnCancelar.setEnabled(false);
-				txtNome.setEnabled(false);
-				txtRenda.setEnabled(false);
+
+			if (msg != null) {
+				JOptionPane.showMessageDialog(frame, msg);
+			} else {
+				resetarCampos();
+				habilitarCampos(false);
 				btnNovo.setEnabled(true);
 				btnBuscar.setEnabled(true);
 				txtCodigo.setEnabled(true);
+				btnIncluirAlterar.setText("Incluir");
+			}
+		});
+
+		btnCancelar.addActionListener(e -> {
+			resetarCampos();
+			habilitarCampos(false);
+			btnNovo.setEnabled(true);
+			btnBuscar.setEnabled(true);
+			txtCodigo.setEnabled(true);
+			btnIncluirAlterar.setText("Incluir");
+		});
+
+		btnLimpar.addActionListener(e -> {
+			if (txtCodigo.isEnabled()) {
 				txtCodigo.setText("");
-				txtRenda.setText("");
-				txtNome.setText("");
-				btnIncluirAlterar.setText("Incluir");				
 			}
+			txtNome.setText("");
+			txtRenda.setText("");
 		});
-		btnLimpar.addMouseListener(new MouseAdapter() {
-			@Override
-			public void mouseDown(MouseEvent e) {
-				if (txtCodigo.isEnabled()) {
-					txtCodigo.setText("");
-				}
-				txtRenda.setText("");
-				txtNome.setText("");				
-			}
-		});
+	}
+
+	private void habilitarCampos(boolean habilitar) {
+		txtNome.setEnabled(habilitar);
+		txtRenda.setEnabled(habilitar);
+	}
+
+	private void resetarCampos() {
+		txtNome.setText("");
+		txtRenda.setText("");
+		txtCodigo.setText("");
 	}
 }
