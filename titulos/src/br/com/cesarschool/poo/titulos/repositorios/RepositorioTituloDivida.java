@@ -1,6 +1,10 @@
 package br.com.cesarschool.poo.titulos.repositorios;
 
-import br.com.cesarschool.poo.titulos.entidades.Acao;
+import java.io.*;
+import java.nio.file.*;
+import java.util.*;
+import java.time.LocalDate;
+
 import br.com.cesarschool.poo.titulos.entidades.TituloDivida;
 
 /*
@@ -11,32 +15,137 @@ import br.com.cesarschool.poo.titulos.entidades.TituloDivida;
     2;EUA;2026-01-01;1.5
     3;FRANCA;2027-11-11;2.5 
  * 
- * A inclusão deve adicionar uma nova linha ao arquivo. Não é permitido incluir 
- * identificador repetido. Neste caso, o método deve retornar false. Inclusão com 
+ * A inclusï¿½o deve adicionar uma nova linha ao arquivo. Nï¿½o ï¿½ permitido incluir 
+ * identificador repetido. Neste caso, o mï¿½todo deve retornar false. Inclusï¿½o com 
  * sucesso, retorno true.
  * 
- * A alteração deve substituir a linha atual por uma nova linha. A linha deve ser 
- * localizada por identificador que, quando não encontrado, enseja retorno false. 
- * Alteração com sucesso, retorno true.  
+ * A alteraï¿½ï¿½o deve substituir a linha atual por uma nova linha. A linha deve ser 
+ * localizada por identificador que, quando nï¿½o encontrado, enseja retorno false. 
+ * Alteraï¿½ï¿½o com sucesso, retorno true.  
  *   
- * A exclusão deve apagar a linha atual do arquivo. A linha deve ser 
- * localizada por identificador que, quando não encontrado, enseja retorno false. 
- * Exclusão com sucesso, retorno true.
+ * A exclusï¿½o deve apagar a linha atual do arquivo. A linha deve ser 
+ * localizada por identificador que, quando nï¿½o encontrado, enseja retorno false. 
+ * Exclusï¿½o com sucesso, retorno true.
  * 
  * A busca deve localizar uma linha por identificador, materializar e retornar um 
- * objeto. Caso o identificador não seja encontrado no arquivo, retornar null.   
+ * objeto. Caso o identificador nï¿½o seja encontrado no arquivo, retornar null.   
  */
 public class RepositorioTituloDivida {
+	private static final String FILE_NAME = "TituloDivida.txt";
+	
 	public boolean incluir(TituloDivida tituloDivida) {
-		return false;
+		List<String> linhas = lerArquivo(); // cada string na array List representa uma linha do arquivo
+        
+        // Verifica se o identificador jÃ¡ existe
+        for (String linha : linhas) {//
+            
+        	String[] dados = linha.split(";");
+            int idExistente = Integer.parseInt(dados[0]);// Converte o primeiro elemento do array dados (que Ã© o identificador) para um nÃºmero inteiro.
+            
+            if (idExistente == tituloDivida.getIdentificador()) {
+                return false; // Identificador jÃ¡ existe
+            }
+        }
+        
+        // Se nÃ£o existir, adiciona a nova aÃ§Ã£o ao final do arquivo
+        String novaLinha = tituloDivida.getIdentificador() + ";" + tituloDivida.getNome() + ";" + tituloDivida.getDataDeValidade() + ";" + tituloDivida.getTaxaJuros();
+        
+        try (BufferedWriter writer = new BufferedWriter(new FileWriter(FILE_NAME, true))) {// new FileWriter(FILE_NAME, true): Abre o arquivo para escrita no modo append (adiciona ao final, em vez de sobrescrever).
+            writer.write(novaLinha);// Escreve a novaLinha no arquivo.
+            writer.newLine();// Adiciona uma nova linha para separar esta entrada das prÃ³ximas.
+        } catch (IOException e) {
+            e.printStackTrace();// Imprime a pilha de erros no console para ajudar na depuraÃ§Ã£o.
+            return false;
+        }
+        
+        return true;
 	}
+	
 	public boolean alterar(TituloDivida tituloDivida) {
-		return false;
+		List<String> linhas = lerArquivo();
+        boolean alterado = false;
+        
+        // Percorre todas as linhas para encontrar e alterar a aÃ§Ã£o
+        for (int i = 0; i < linhas.size(); i++) {// pecorre todas as linhas da List, linhas.size() Ã© a quantidade de linhas.
+            
+        	String[] dados = linhas.get(i).split(";");// (linhas.get(i)) pega a string da linha atual e a divide usando split(";")
+            int idExistente = Integer.parseInt(dados[0]);
+            
+            if (idExistente == tituloDivida.getIdentificador()) {
+                linhas.set(i, tituloDivida.getIdentificador() + ";" + tituloDivida.getNome() + ";" + tituloDivida.getDataDeValidade() + ";" + tituloDivida.getTaxaJuros());// Substitui a linha atual (i) da lista linhas por uma nova String contendo os dados atualizados da aÃ§Ã£o.
+                alterado = true;
+                break;
+            }
+        }
+        
+        if (alterado) {
+            escreverArquivo(linhas);
+            return true;
+        } else {
+            return false; // Identificador nÃ£o encontrado
+        }
 	}
+	
 	public boolean excluir(int identificador) {
-		return false;
+		List<String> linhas = lerArquivo();
+        boolean removido = false;
+        
+        for (int i = 0; i < linhas.size(); i++) { 
+            
+        	String[] dados = linhas.get(i).split(";");
+            int idExistente = Integer.parseInt(dados[0]);
+            
+            if (idExistente == identificador) {
+                linhas.remove(i);
+                removido = true;
+                break;
+            }
+        }
+        
+        if (removido) {
+            escreverArquivo(linhas);
+            return true;
+        } else {
+            return false; // Identificador nÃ£o encontrado
+        }
 	}
-	public Acao buscar(int identificador) {
-		return null;
+	
+	public TituloDivida buscar(int identificador) {
+	    List<String> linhas = lerArquivo();
+	    
+	    for (String linha : linhas) {
+	        String[] dados = linha.split(";");
+	        int idExistente = Integer.parseInt(dados[0]);
+	        
+	        if (idExistente == identificador) {
+	            String nome = dados[1];
+	            LocalDate dataValidade = LocalDate.parse(dados[2]);
+	            double taxaJuros = Double.parseDouble(dados[3]);
+	            return new TituloDivida(idExistente, nome, dataValidade, taxaJuros);
+	        }
+	    }
+	    
+	    return null; // Identificador nÃ£o encontrado
 	}
+
+	private List<String> lerArquivo() {
+        List<String> linhas = new ArrayList<>();
+        try {
+            linhas = Files.readAllLines(Paths.get(FILE_NAME));
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+        return linhas;
+    }
+    
+    private void escreverArquivo(List<String> linhas) {
+        try (BufferedWriter writer = new BufferedWriter(new FileWriter(FILE_NAME))) {
+            for (String linha : linhas) {
+                writer.write(linha);
+                writer.newLine();
+            }
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+    }
 }
