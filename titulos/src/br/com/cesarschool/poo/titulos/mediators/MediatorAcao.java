@@ -2,6 +2,9 @@ package br.com.cesarschool.poo.titulos.mediators;
 
 import java.time.LocalDate;
 
+import br.com.cesarschool.poo.titulos.entidades.Acao;
+import br.com.cesarschool.poo.titulos.repositorios.RepositorioAcao;
+
 /*
  * Deve ser um singleton.
  *
@@ -92,7 +95,7 @@ public class MediatorAcao {
 
         // (4) Validar a data de validade (deve ser pelo menos 30 dias maior que a data atual)
         LocalDate dataAtual = LocalDate.now();
-        if (acao.getDataValidade().isBefore(dataAtual.plusDays(30))) {
+        if (acao.getDataDeValidade().isBefore(dataAtual.plusDays(30))) {
             return "Data de validade deve ter pelo menos 30 dias à frente da data atual.";
         }
 
