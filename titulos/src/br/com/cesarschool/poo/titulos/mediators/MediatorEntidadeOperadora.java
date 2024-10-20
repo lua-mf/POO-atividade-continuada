@@ -1,4 +1,8 @@
 package br.com.cesarschool.poo.titulos.mediators;
+
+import br.com.cesarschool.poo.titulos.entidades.EntidadeOperadora;
+import br.com.cesarschool.poo.titulos.repositorios.RepositorioEntidadeOperadora;
+
 /*
  * Deve ser um singleton.
  *
@@ -48,47 +52,41 @@ package br.com.cesarschool.poo.titulos.mediators;
  * Se este for válido, deve chamar o buscar do repositório, retornando o
  * que ele retornar. Se o identificador for inválido, retornar null.
  */
-public class MediatorEntdadeOperadora {
+public class MediatorEntidadeOperadora {
 
-    private final RepositorioAcao repositorioAcao = new RepositorioAcao();
+    private static MediatorEntidadeOperadora instanciaUnica = null;
+    private final RepositorioEntidadeOperadora repositorioEntidadeOperadora = new RepositorioEntidadeOperadora();
 
-    private MediatorEntdadeOperadora instanciaUnica;
+    private MediatorEntidadeOperadora() {
+        // Construtor privado
+    }
 
-    public br.com.cesarschool.poo.titulos.mediators.MediatorEntdadeOperadora getInstanciaUnica() {
-
+    public static MediatorEntidadeOperadora getInstanciaUnica() {
         if (instanciaUnica == null) {
-            instanciaUnica = new MediatorAcao();
+            instanciaUnica = new MediatorEntidadeOperadora();
         }
-
         return instanciaUnica;
     }
 
-    pivate String validar(EntidadeOperadora){
-
-        if (acao.getIdentificador() <= 100 || acao.getIdentificador() >= 1000000) {
+    private String validar(EntidadeOperadora entidadeOperadora) {
+        if (entidadeOperadora.getIdentificador() <= 100 || entidadeOperadora.getIdentificador() >= 1000000) {
             return "Identificador deve estar entre 100 e 1000000.";
         }
 
-        String nome = acao.getNome();
+        String nome = entidadeOperadora.getNome();
         if (nome == null || nome.trim().isEmpty()) {
             return "Nome deve ser preenchido.";
         }
 
-        if (nome.length() < 5 || nome.length() > 60) {
-            return "Nome deve ter entre 5 e 60 caracteres.";
+        if (nome.length() < 10 || nome.length() > 100) {
+            return "Nome deve ter entre 10 e 100 caracteres.";
         }
 
-        LocalDate dataAtual = LocalDate.now();
-        if (acao.getDataValidade().isBefore(dataAtual.plusDays(180))) {
-            return "Data de validade deve ter pelo menos 180 dias à frente da data atual.";
-        }
-
-        if (acao.getValorUnitario() <= 0) {
+        if (entidadeOperadora.getAutorizadoAcao() <= 0) {
             return "Valor unitário deve ser maior que zero.";
         }
 
-        return null;
-
+        return null; // Entidade válida
     }
 
     public String incluir(EntidadeOperadora entidade) {
@@ -137,7 +135,4 @@ public class MediatorEntdadeOperadora {
         }
         return repositorioEntidadeOperadora.buscar(identificador);
     }
-
-
-
 }
