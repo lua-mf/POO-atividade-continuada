@@ -8,9 +8,7 @@ import java.awt.event.ActionListener;
 public class TelaAdicao {
 
 	private JFrame frame;  // Janela principal
-	private JTextField txtPrimeiroNumero;  // Campo de texto para o primeiro número
-	private JTextField txtSegundoNumero;   // Campo de texto para o segundo número
-	private JTextField txtResultado;       // Campo de texto para o resultado
+	private JTextField txtPrimeiroNumero, txtSegundoNumero, txtResultado;  
 
 	/**
 	 * Método principal para iniciar o programa.

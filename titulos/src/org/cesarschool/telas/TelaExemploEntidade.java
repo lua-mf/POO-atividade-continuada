@@ -2,20 +2,13 @@ package org.cesarschool.telas;
 
 import javax.swing.*;
 import java.awt.*;
-import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
 
 public class TelaExemploEntidade {
 
 	private JFrame frame;
-	private JTextField txtCodigo;
-	private JTextField txtNome;
-	private JTextField txtRenda;
-	private JButton btnNovo;
-	private JButton btnBuscar;
-	private JButton btnIncluirAlterar;
-	private JButton btnCancelar;
-	private JButton btnLimpar;
+	private JTextField txtCodigo, txtNome, txtRenda;
+	private JButton btnNovo, btnBuscar, btnIncluirAlterar, btnCancelar, btnLimpar;  
+	
 	private EntidadeMediator mediator = new EntidadeMediator();
 
 	public static void main(String[] args) {
