@@ -16,7 +16,6 @@ public class TelaAcao extends JFrame {
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         setLayout(new BorderLayout());
 
-        // Menu
         JMenuBar menuBar = new JMenuBar();
         JMenu menu = new JMenu("Opções");
         JMenuItem incluirItem = new JMenuItem("Incluir");
@@ -34,12 +33,10 @@ public class TelaAcao extends JFrame {
         menuBar.add(menu);
         setJMenuBar(menuBar);
 
-        // Painel de status
         JTextArea statusArea = new JTextArea();
         statusArea.setEditable(false);
         add(new JScrollPane(statusArea), BorderLayout.CENTER);
 
-        // Listeners dos itens do menu
         incluirItem.addActionListener(e -> incluirAcao(statusArea));
         alterarItem.addActionListener(e -> alterarAcao(statusArea));
         excluirItem.addActionListener(e -> excluirAcao(statusArea));

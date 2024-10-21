@@ -7,7 +7,6 @@ public class EntidadeDAO {
 
     private final List<Entidade> entidades = new ArrayList<>();
 
-    // Método para incluir uma nova entidade
     public void incluir(Entidade entidade) {
         if (entidade == null) {
             System.out.println("Entidade nula. Não foi possível incluir.");
@@ -19,7 +18,6 @@ public class EntidadeDAO {
             return;
         }
 
-        // Verifica se já existe uma entidade com o mesmo código
         if (buscar(entidade.getCodigo()) != null) {
             System.out.println("Entidade com o código " + entidade.getCodigo() + " já existe.");
             return;
@@ -30,7 +28,6 @@ public class EntidadeDAO {
     }
 
 
-    // Método para alterar uma entidade existente
     public void alterar(Entidade entidade) {
         if (entidade == null || entidade.getCodigo() == null) {
             System.out.println("Dados da entidade inválidos. Não foi possível alterar.");
@@ -47,7 +44,6 @@ public class EntidadeDAO {
         System.out.println("Entidade não encontrada para alterar: " + entidade.getCodigo());
     }
 
-    // Método para buscar uma entidade por código
     public Entidade buscar(String codigo) {
         if (codigo == null || codigo.trim().isEmpty()) {
             System.out.println("Código nulo ou vazio. Não foi possível buscar.");
@@ -55,10 +51,10 @@ public class EntidadeDAO {
         }
 
         codigo = codigo.trim();
-        System.out.println("Buscando pelo código: " + codigo);  // Debug
+        System.out.println("Buscando pelo código: " + codigo);  
 
         for (Entidade entidade : entidades) {
-            System.out.println("Verificando entidade com código: " + entidade.getCodigo().trim());  // Debug
+            System.out.println("Verificando entidade com código: " + entidade.getCodigo().trim());  
             if (entidade.getCodigo().trim().equalsIgnoreCase(codigo)) {
                 System.out.println("Entidade encontrada: " + entidade.getNome());
                 return entidade;

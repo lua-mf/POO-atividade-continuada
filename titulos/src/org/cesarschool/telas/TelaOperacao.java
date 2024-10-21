@@ -55,20 +55,16 @@ public class TelaOperacao extends JFrame {
             }
         });
 
-        // Adicionando os botões ao painel
         panel.add(btnAcao);
         panel.add(btnTituloDivida);
         panel.add(btnTransacao);
 
-        // Adicionando o painel à janela principal
         add(panel);
 
-        // Tornando a tela visível
         setVisible(true);
     }
 
-    // Método principal para rodar a tela
     public static void main(String[] args) {
-        new TelaOperacao(); // Iniciar a tela de operações
+        new TelaOperacao(); 
     }
 }
