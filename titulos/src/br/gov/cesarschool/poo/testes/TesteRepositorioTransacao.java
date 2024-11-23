@@ -87,3 +87,4 @@ public class TesteRepositorioTransacao extends TesteGeral {
 		Assertions.assertNotNull(trs);
 		Assertions.assertEquals(trs.length, 0);
 	}
+}
