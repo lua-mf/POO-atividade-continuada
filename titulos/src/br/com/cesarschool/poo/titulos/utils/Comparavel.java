@@ -1,4 +1,4 @@
-package br.com.cesarschool.poo.titulos.utils.Comparavel;
+package br.com.cesarschool.poo.titulos.utils;
 
 public interface Comparavel {
 	
