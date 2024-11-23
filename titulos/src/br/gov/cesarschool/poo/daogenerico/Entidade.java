@@ -65,6 +65,6 @@ public abstract class Entidade implements Serializable {
 		this.usuarioUltimaAlteracao = usuarioUltimaAlteracao;
 	}
 	
-	public abstract int getIdUnico();
+	public abstract Object getIdUnico();
 	
 }

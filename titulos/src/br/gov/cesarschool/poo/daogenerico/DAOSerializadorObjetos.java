@@ -14,8 +14,10 @@ package br.gov.cesarschool.poo.daogenerico;
  */
 public class DAOSerializadorObjetos {
 	private String nomeDiretorio; 
+	
 	public DAOSerializadorObjetos(Class<?> tipoEntidade) {
 	}	
+	
 	public boolean incluir(Entidade entidade) {
 	}
 	public boolean alterar(Entidade entidade) {
