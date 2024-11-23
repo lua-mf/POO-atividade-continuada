@@ -29,7 +29,6 @@ public abstract class Entidade implements Serializable {
 	private String usuarioInclusao;
 	private String usuarioUltimaAlteracao;
 	
-
 	public Entidade() {
 		
 	}
