@@ -29,7 +29,7 @@ import java.time.LocalDate;
  * A busca deve localizar uma linha por identificador, materializar e retornar um 
  * objeto. Caso o identificador n�o seja encontrado no arquivo, retornar null.   
  */
-public class RepositorioAcao {
+public class RepositorioAcao extends RepositorioGeral {
     private static final String FILE_NAME = "Acao.txt";
     
     public boolean incluir(Acao acao) {
@@ -148,4 +148,8 @@ public class RepositorioAcao {
             e.printStackTrace();
         }
     }
+
+	public Class<?> getClasseEntidade() {
+		return Acao.class;
+	}
 }

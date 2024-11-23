@@ -33,7 +33,7 @@ import br.com.cesarschool.poo.titulos.entidades.EntidadeOperadora;
  * A busca deve localizar uma linha por identificador, materializar e retornar um 
  * objeto. Caso o identificador n�o seja encontrado no arquivo, retornar null.   
  */
-public class RepositorioEntidadeOperadora {
+public class RepositorioEntidadeOperadora extends RepositorioGeral {
 	private static final String FILE_NAME = "EntidadeOperadora.txt";
     
     public boolean incluir(EntidadeOperadora entidadeOperadora) {
@@ -149,4 +149,8 @@ public class RepositorioEntidadeOperadora {
             e.printStackTrace();
         }
     }
+
+	public Class<?> getClasseEntidade() {
+		return EntidadeOperadora.class;
+	}
 }

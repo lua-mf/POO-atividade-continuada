@@ -29,7 +29,7 @@ import br.com.cesarschool.poo.titulos.entidades.TituloDivida;
  * A busca deve retornar um array de transa��es cuja entidadeCredito tenha identificador igual ao
  * recebido como par�metro.  
  */
-public class RepositorioTransacao {
+public class RepositorioTransacao extends RepositorioGeral {
 	private static final String FILE_NAME = "Transacao.txt";
 	
 	public void incluir(Transacao transacao) {
@@ -113,5 +113,9 @@ public class RepositorioTransacao {
 	    return new Transacao(entidadeCredito, entidadeDebito, acao, tituloDivida, valorOperacao, dataHoraOperacao);
 	}
 
+
+	public Class<?> getClasseEntidade() {
+		return Transacao.class;
+	}
 
 }
