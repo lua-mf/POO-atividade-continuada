@@ -1,5 +1,7 @@
 package br.com.cesarschool.poo.titulos.utils.Comparavel;
 
-public class Comparavel {
+public interface Comparavel {
+	
+	abstract int comparar(Comparavel c);
 
 }
