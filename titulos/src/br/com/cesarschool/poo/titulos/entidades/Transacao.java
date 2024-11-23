@@ -3,6 +3,7 @@ package br.com.cesarschool.poo.titulos.entidades;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 
+import br.com.cesarschool.poo.titulos.utils.Comparavel;
 import br.gov.cesarschool.poo.daogenerico.Entidade;
 
 /*
@@ -20,7 +21,7 @@ import br.gov.cesarschool.poo.daogenerico.Entidade;
  * 
  *  
  */ 
-public class Transacao extends Entidade {
+public class Transacao extends Entidade implements Comparavel {
 	private static final long serialVersionUID = 1L;
 	
     private EntidadeOperadora entidadeCredito;
@@ -77,5 +78,13 @@ public class Transacao extends Entidade {
 	    String dataHoraFormatada = dataHoraOperacao.format(DateTimeFormatter.ofPattern("yyyyMMddHHmmss"));
 	    
 	    return entidadeCredito.getIdUnico() + "_" + entidadeDebito.getIdUnico() + "_" + idAtivo + "_" + dataHoraFormatada;
+	}
+
+	public int comparar(Comparavel c) {
+		if (!(c instanceof Transacao)) {
+            throw new IllegalArgumentException("O objeto a ser comparado deve ser do tipo Transacao.");
+        }
+        Transacao outra = (Transacao) c;
+        return this.dataHoraOperacao.compareTo(outra.getDataHoraOperacao());
 	}
 }
