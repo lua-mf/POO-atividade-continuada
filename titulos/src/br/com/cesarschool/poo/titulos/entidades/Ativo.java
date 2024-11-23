@@ -2,6 +2,8 @@ package br.com.cesarschool.poo.titulos.entidades;
 
 import java.time.LocalDate;
 
+import br.gov.cesarschool.poo.daogenerico.Entidade;
+
 /*
  * Esta classe deve ter os seguintes atributos:
  * identificador, do tipo int
@@ -12,7 +14,8 @@ import java.time.LocalDate;
  * e m�todos set/get p�blicos para os atributos. O atributo identificador
  * � read-only fora da classe.
  */
-public class Ativo {
+public class Ativo extends Entidade{
+	private static final long serialVersionUID = 1L;
 
     private int identificador;
     private String nome;
@@ -43,5 +46,9 @@ public class Ativo {
     public void setDataDeValidade(LocalDate dataDeValidade) {
         this.dataDeValidade = dataDeValidade;
     }
+
+	public Object getIdUnico() {
+		return identificador;
+	}
 
 }

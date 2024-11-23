@@ -14,6 +14,7 @@ import java.time.LocalDate;
  * da transa��o � o produto do montante pelo valorUnitario.
  */
 public class Acao extends Ativo {
+	private static final long serialVersionUID = 1L;
 
     private double valorUnitario;
 

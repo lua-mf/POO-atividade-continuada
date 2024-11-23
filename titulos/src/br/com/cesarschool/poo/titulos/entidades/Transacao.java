@@ -1,6 +1,9 @@
 package br.com.cesarschool.poo.titulos.entidades;
 
 import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
+
+import br.gov.cesarschool.poo.daogenerico.Entidade;
 
 /*
  * Esta classe deve ter os seguintes atributos:
@@ -17,7 +20,9 @@ import java.time.LocalDateTime;
  * 
  *  
  */ 
-public class Transacao {
+public class Transacao extends Entidade {
+	private static final long serialVersionUID = 1L;
+	
     private EntidadeOperadora entidadeCredito;
     private EntidadeOperadora entidadeDebito;
     private Acao acao;
@@ -57,4 +62,20 @@ public class Transacao {
     public LocalDateTime getDataHoraOperacao() {
         return dataHoraOperacao;
     }
+
+	public Object getIdUnico() {
+		String idAtivo;
+	    
+	    if (acao != null) {
+	        idAtivo = acao.getIdUnico().toString();
+	    } else if (tituloDivida != null) {
+	        idAtivo = tituloDivida.getIdUnico().toString();
+	    } else {
+	        throw new IllegalStateException("Transação deve ter uma ação ou um título de dívida associado.");
+	    }
+
+	    String dataHoraFormatada = dataHoraOperacao.format(DateTimeFormatter.ofPattern("yyyyMMddHHmmss"));
+	    
+	    return entidadeCredito.getIdUnico() + "_" + entidadeDebito.getIdUnico() + "_" + idAtivo + "_" + dataHoraFormatada;
+	}
 }

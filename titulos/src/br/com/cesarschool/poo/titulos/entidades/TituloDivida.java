@@ -16,6 +16,8 @@ package br.com.cesarschool.poo.titulos.entidades;
 import java.time.LocalDate;
 
 public class TituloDivida extends Ativo {
+	private static final long serialVersionUID = 1L;
+	
 	private double taxaJuros;
 	
 	public TituloDivida(int identificador, String nome, LocalDate dataDeValidade, double taxaJuros) {
