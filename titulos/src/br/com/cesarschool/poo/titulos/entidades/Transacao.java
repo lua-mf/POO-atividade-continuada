@@ -64,13 +64,13 @@ public class Transacao extends Entidade implements Comparavel {
         return dataHoraOperacao;
     }
 
-	public Object getIdUnico() {
+	public String getIdUnico() {
 		String idAtivo;
 	    
 	    if (acao != null) {
-	        idAtivo = acao.getIdUnico().toString();
+	        idAtivo = acao.getIdUnico();
 	    } else if (tituloDivida != null) {
-	        idAtivo = tituloDivida.getIdUnico().toString();
+	        idAtivo = tituloDivida.getIdUnico();
 	    } else {
 	        throw new IllegalStateException("Transação deve ter uma ação ou um título de dívida associado.");
 	    }

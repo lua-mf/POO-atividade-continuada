@@ -17,9 +17,9 @@ public class RelatorioTransacaoBroker {
 
     public Transacao[] relatorioTransacaoPorNomeEntidadeCredora() {
         // Busca todas as transações
-        Transacao[] transacoes = repositorio.buscarPorEntidadeCredora(-1); 
+        Transacao[] transacoes = repositorio.buscarPorEntidadeCredora(-1);
         if (transacoes == null || transacoes.length == 0) {
-            return new Transacao[0]; 
+            return new Transacao[0];
         }
 
         // Ordena usando o ComparadorTransacaoPorNomeCredora
@@ -27,4 +27,25 @@ public class RelatorioTransacaoBroker {
 
         return transacoes;
     }
+
+    public Transacao[] relatorioTransacaoPorDataHora() {
+        // Busca todas as transações do repositório
+        Transacao[] transacoes = repositorio.buscarTodasTransacoes();
+
+        // Ordena usando a classe Ordenador e um comparador por data/hora
+        Ordenador.ordenar(transacoes, new Comparador() {
+            @Override
+            public int comparar(Comparavel c1, Comparavel c2) {
+                Transacao t1 = (Transacao) c1;
+                Transacao t2 = (Transacao) c2;
+                return t2.getDataHoraOperacao().compareTo(t1.getDataHoraOperacao()); // Ordem decrescente
+            }
+        });
+
+        return transacoes; // Retorna o array ordenado
+    }
 }
+
+
+
+

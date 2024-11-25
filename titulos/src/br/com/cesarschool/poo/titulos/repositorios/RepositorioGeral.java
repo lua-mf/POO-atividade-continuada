@@ -8,6 +8,10 @@ public abstract class RepositorioGeral {
 	RepositorioGeral(){
 		this.dao = new DAOSerializadorObjetos(getClasseEntidade());
 	}
+
+	public DAOSerializadorObjetos getDao() {
+		return dao;
+	}
 	
 	public abstract Class<?> getClasseEntidade();
 

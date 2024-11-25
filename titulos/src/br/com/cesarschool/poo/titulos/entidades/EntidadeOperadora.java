@@ -38,8 +38,8 @@ public class EntidadeOperadora extends Entidade {
         this.autorizadoAcao = autorizadoAcao;
     }
 
-    public long getIdentificador() {
-        return identificador;
+    public int getIdentificador() {
+        return (int)identificador;
     }
 
     public String getNome() {
@@ -83,8 +83,8 @@ public class EntidadeOperadora extends Entidade {
         this.saldoTituloDivida -= valor;
     }
 
-	public Object getIdUnico() {
-		return identificador;
+	public String getIdUnico() {
+		return identificador + "";
 	}
 
 
