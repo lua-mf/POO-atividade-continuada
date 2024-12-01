@@ -1,7 +1,7 @@
 package br.gov.cesarschool.poo.testes;
 
 import java.io.File;
-import org.junit.jupiter.api.Test; ;
+import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.Assertions;
 import br.com.cesarschool.poo.titulos.entidades.EntidadeOperadora;
 import br.com.cesarschool.poo.titulos.repositorios.RepositorioEntidadeOperadora;

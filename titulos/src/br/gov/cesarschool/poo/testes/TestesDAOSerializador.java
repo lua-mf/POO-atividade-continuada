@@ -3,7 +3,7 @@ package br.gov.cesarschool.poo.testes;
 import java.io.File;
 import java.io.Serializable;
 
-import org.junit.jupiter.api.Test; ;
+import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.Assertions;
 
 import br.gov.cesarschool.poo.daogenerico.DAOSerializadorObjetos;
