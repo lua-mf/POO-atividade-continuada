@@ -12,13 +12,14 @@ import java.time.LocalDate;
  * 
  * Deve ter um m�todo p�blico double calcularPrecoTransacao(double montante): o pre�o 
  * da transa��o � o produto do montante pelo valorUnitario.
+ * 
  */
+
 public class Acao extends Ativo {
-	private static final long serialVersionUID = 1L;
 
     private double valorUnitario;
 
-    public Acao(int identificador, String nome, LocalDate dataDeValidade, double valorUnitario){
+    public Acao(int identificador, String nome, LocalDate dataDeValidade, double valorUnitario) {
         super(identificador, nome, dataDeValidade);
         this.valorUnitario = valorUnitario;
     }
@@ -31,7 +32,15 @@ public class Acao extends Ativo {
         this.valorUnitario = valorUnitario;
     }
 
-    public double calcularPrecoTransacao(double montante){
-        return montante*valorUnitario;
+    public double calcularPrecoTransacao(double montante) {
+        return montante * valorUnitario;
+    }
+
+    @Override
+    public String toString() {
+        return String.format(
+            "Ação [ID: %d, Nome: %s, Data de Validade: %s, Valor Unitário: %.2f]",
+            getIdentificador(), getNome(), getDataDeValidade(), valorUnitario
+        );
     }
 }

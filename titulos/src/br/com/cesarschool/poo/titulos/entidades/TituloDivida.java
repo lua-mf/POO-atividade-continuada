@@ -1,8 +1,9 @@
 package br.com.cesarschool.poo.titulos.entidades;
 
+import java.time.LocalDate;
+
 /*
  * Esta classe deve herdar de Ativo.
-
  * E deve ter os seguintes atributos:
  * taxaJuros, do tipo double.
  * 
@@ -13,10 +14,7 @@ package br.com.cesarschool.poo.titulos.entidades;
  * da transa��o � montante vezes (1 - taxaJuros/100.0).
  */
 
-import java.time.LocalDate;
-
 public class TituloDivida extends Ativo {
-	private static final long serialVersionUID = 1L;
 	
 	private double taxaJuros;
 	
@@ -37,4 +35,12 @@ public class TituloDivida extends Ativo {
 		return montante * (1 - taxaJuros/100.0);
 	}
 	
+	 @Override
+	    public String toString() {
+	        return String.format(
+	            "Ação [ID: %d, Nome: %s, Data de Validade: %s, Taxa de Juros: %.2f]",
+	            getIdentificador(), getNome(), getDataDeValidade(), taxaJuros
+	        );
+	    }
+
 }

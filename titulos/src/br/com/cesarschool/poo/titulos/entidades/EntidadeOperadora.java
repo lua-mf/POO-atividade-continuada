@@ -19,73 +19,80 @@ import br.gov.cesarschool.poo.daogenerico.Entidade;
  * Outros m�todos p�blicos:
  * 
  *  void creditarSaldoAcao(double valor): deve adicionar valor ao saldoAcao
- *  void debitarSaldoAcao(double valor): deve diminuir valor de saldoAcao
+ *  void debitarSaldoAcao(double valor): deve diminuir valor de saldoAcao / pode ser negativado?
  *  void creditarSaldoTituloDivida(double valor): deve adicionar valor ao saldoTituloDivida
  *  void debitarSaldoTituloDivida(double valor): deve diminuir valor de saldoTituloDivida  
  */
-public class EntidadeOperadora extends Entidade {
-	private static final long serialVersionUID = 1L;
-	
-    private long identificador;
-    private String nome;
-    private double autorizadoAcao;
-    private double saldoAcao;
-    private double saldoTituloDivida;
 
-    public EntidadeOperadora(long identificador, String nome, double autorizadoAcao){
+public class EntidadeOperadora extends Entidade {
+	
+	private long identificador;
+	private String nome;
+	private boolean autorizadoAcao;
+	private double saldoAcao;
+	private double saldoTituloDivida;
+	
+	public EntidadeOperadora(long identificador, String nome, double autorizadoAcao) {
+        super();
         this.identificador = identificador;
         this.nome = nome;
-        this.autorizadoAcao = autorizadoAcao;
     }
-
-    public int getIdentificador() {
-        return (int)identificador;
-    }
-
-    public String getNome() {
-        return nome;
-    }
-
-    public double getAutorizadoAcao() {
-        return autorizadoAcao;
-    }
-    
-    public double getSaldoAcao() {
-    	return saldoAcao;
-    }
-    
-    public double getSaldoTituloDivida() {
-    	return saldoTituloDivida;
-    }
-
-
-    public void setNome(String nome) {
-        this.nome = nome;
-    }
-
-    public void setAutorizadoAcao(double autorizadoAcao) {
-        this.autorizadoAcao = autorizadoAcao;
-    }
-
-    public void creditarSaldoAcao(double valor) {
-        this.saldoAcao += valor;
-    }
-
-    public void debitarSaldoAcao(double valor) {
-        this.saldoAcao -= valor;
-    }
-
-    public void creditarSaldoTituloDivida(double valor) {
-        this.saldoTituloDivida += valor;
-    }
-
-    public void debitarSaldoTituloDivida(double valor) {
-        this.saldoTituloDivida -= valor;
-    }
-
+	
+	@Override
 	public String getIdUnico() {
-		return identificador + "";
+		return String.valueOf(identificador);
 	}
-
-
+	
+	public long getIdentificador() {
+		return identificador;
+	}
+	
+	public String getNome() {
+		return nome;
+	}
+	
+	public void setNome(String nome) {
+		this.nome = nome;
+	}
+	
+	public boolean getAutorizadoAcao() {
+		return autorizadoAcao;
+	}
+	
+	public void setAutorizadoAcao(boolean autorizadoAcao) {
+		this.autorizadoAcao = autorizadoAcao;
+	}
+	
+	public double getSaldoAcao() {
+		return saldoAcao;
+	}
+	
+	public double getSaldoTituloDivida() {
+		return saldoTituloDivida;
+	}
+	
+	public void creditarSaldoAcao(double valor) {
+		saldoAcao = saldoAcao + valor;
+	}
+	
+	public void debitarSaldoAcao(double valor) {
+		saldoAcao = saldoAcao - valor;
+	}
+	
+	public void creditarSaldoTituloDivida(double valor) {
+		saldoTituloDivida = saldoTituloDivida + valor;
+	}
+	
+	public void debitarSaldoTituloDivida(double valor) {
+		saldoTituloDivida = saldoTituloDivida - valor;
+	}
+	
+	@Override
+    public String toString() {
+        return String.format(
+            "Ação [ID: %d, Nome: %s, Autorização de Ação: %s, Saldo de Ação: %.2f, Saldo de título dívida: %.2f]",
+            getIdentificador(), getNome(), getAutorizadoAcao(), getSaldoAcao(), getSaldoTituloDivida()
+        );
+    }
+	
 }

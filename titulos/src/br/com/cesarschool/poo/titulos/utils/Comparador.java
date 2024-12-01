@@ -2,6 +2,6 @@ package br.com.cesarschool.poo.titulos.utils;
 
 public interface Comparador {
 
-    abstract int comparar(Comparavel c1, Comparavel c2);
-
+	public abstract int comparar(Comparavel c1, Comparavel c2);
+	
 }

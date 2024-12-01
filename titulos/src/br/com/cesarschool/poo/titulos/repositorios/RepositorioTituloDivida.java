@@ -1,11 +1,7 @@
 package br.com.cesarschool.poo.titulos.repositorios;
 
-import java.io.*;
-import java.nio.file.*;
-import java.util.*;
-import java.time.LocalDate;
-
 import br.com.cesarschool.poo.titulos.entidades.TituloDivida;
+import br.gov.cesarschool.poo.daogenerico.DAOSerializadorObjetos;
 
 /*
  * Deve gravar em e ler de um arquivo texto chamado TituloDivida.txt os dados dos objetos do tipo
@@ -30,125 +26,37 @@ import br.com.cesarschool.poo.titulos.entidades.TituloDivida;
  * A busca deve localizar uma linha por identificador, materializar e retornar um 
  * objeto. Caso o identificador n�o seja encontrado no arquivo, retornar null.   
  */
+
 public class RepositorioTituloDivida extends RepositorioGeral{
-	private static final String FILE_NAME = "TituloDivida.txt";
 	
-	public boolean incluir(TituloDivida tituloDivida) {
-		List<String> linhas = lerArquivo(); // cada string na array List representa uma linha do arquivo
-        
-        // Verifica se o identificador já existe
-        for (String linha : linhas) {//
-            
-        	String[] dados = linha.split(";");
-            int idExistente = Integer.parseInt(dados[0]);// Converte o primeiro elemento do array dados (que é o identificador) para um número inteiro.
-            
-            if (idExistente == tituloDivida.getIdentificador()) {
-                return false; // Identificador já existe
-            }
-        }
-        
-        // Se não existir, adiciona a nova ação ao final do arquivo
-        String novaLinha = tituloDivida.getIdentificador() + ";" + tituloDivida.getNome() + ";" + tituloDivida.getDataDeValidade() + ";" + tituloDivida.getTaxaJuros();
-        
-        try (BufferedWriter writer = new BufferedWriter(new FileWriter(FILE_NAME, true))) {// new FileWriter(FILE_NAME, true): Abre o arquivo para escrita no modo append (adiciona ao final, em vez de sobrescrever).
-            writer.write(novaLinha);// Escreve a novaLinha no arquivo.
-            writer.newLine();// Adiciona uma nova linha para separar esta entrada das próximas.
-        } catch (IOException e) {
-            e.printStackTrace();// Imprime a pilha de erros no console para ajudar na depuração.
-            return false;
-        }
-        
-        return true;
-	}
-	
-	public boolean alterar(TituloDivida tituloDivida) {
-		List<String> linhas = lerArquivo();
-        boolean alterado = false;
-        
-        // Percorre todas as linhas para encontrar e alterar a ação
-        for (int i = 0; i < linhas.size(); i++) {// pecorre todas as linhas da List, linhas.size() é a quantidade de linhas.
-            
-        	String[] dados = linhas.get(i).split(";");// (linhas.get(i)) pega a string da linha atual e a divide usando split(";")
-            int idExistente = Integer.parseInt(dados[0]);
-            
-            if (idExistente == tituloDivida.getIdentificador()) {
-                linhas.set(i, tituloDivida.getIdentificador() + ";" + tituloDivida.getNome() + ";" + tituloDivida.getDataDeValidade() + ";" + tituloDivida.getTaxaJuros());// Substitui a linha atual (i) da lista linhas por uma nova String contendo os dados atualizados da ação.
-                alterado = true;
-                break;
-            }
-        }
-        
-        if (alterado) {
-            escreverArquivo(linhas);
-            return true;
-        } else {
-            return false; // Identificador não encontrado
-        }
-	}
-	
-	public boolean excluir(int identificador) {
-		List<String> linhas = lerArquivo();
-        boolean removido = false;
-        
-        for (int i = 0; i < linhas.size(); i++) { 
-            
-        	String[] dados = linhas.get(i).split(";");
-            int idExistente = Integer.parseInt(dados[0]);
-            
-            if (idExistente == identificador) {
-                linhas.remove(i);
-                removido = true;
-                break;
-            }
-        }
-        
-        if (removido) {
-            escreverArquivo(linhas);
-            return true;
-        } else {
-            return false; // Identificador não encontrado
-        }
-	}
-	
-	public TituloDivida buscar(int identificador) {
-	    List<String> linhas = lerArquivo();
-	    
-	    for (String linha : linhas) {
-	        String[] dados = linha.split(";");
-	        int idExistente = Integer.parseInt(dados[0]);
-	        
-	        if (idExistente == identificador) {
-	            String nome = dados[1];
-	            LocalDate dataValidade = LocalDate.parse(dados[2]);
-	            double taxaJuros = Double.parseDouble(dados[3]);
-	            return new TituloDivida(idExistente, nome, dataValidade, taxaJuros);
-	        }
-	    }
-	    
-	    return null; // Identificador não encontrado
+	public RepositorioTituloDivida() {
 	}
 
-	private List<String> lerArquivo() {
-        List<String> linhas = new ArrayList<>();
-        try {
-            linhas = Files.readAllLines(Paths.get(FILE_NAME));
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
-        return linhas;
+    public boolean incluir(TituloDivida tituloDivida) {
+    	DAOSerializadorObjetos dao = getDao();
+
+        return dao.incluir(tituloDivida);
+    }
+
+    public boolean alterar(TituloDivida tituloDivida) {
+    	DAOSerializadorObjetos dao = getDao();
+
+        return dao.alterar(tituloDivida);
+    }
+
+    public boolean excluir(int identificador) {
+    	DAOSerializadorObjetos dao = getDao();
+
+        return dao.excluir(String.valueOf(identificador));
+    }
+
+    public TituloDivida buscar(int identificador) {
+    	DAOSerializadorObjetos dao = getDao();
+
+        return (TituloDivida)dao.buscar(String.valueOf(identificador));
     }
     
-    private void escreverArquivo(List<String> linhas) {
-        try (BufferedWriter writer = new BufferedWriter(new FileWriter(FILE_NAME))) {
-            for (String linha : linhas) {
-                writer.write(linha);
-                writer.newLine();
-            }
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
-    }
-
+	@Override
 	public Class<?> getClasseEntidade() {
 		return TituloDivida.class;
 	}

@@ -1,6 +1,7 @@
 package br.gov.cesarschool.poo.testes;
 
 import java.io.File;
+
 import br.gov.cesarschool.poo.daogenerico.Entidade;
 import br.gov.cesarschool.poo.testes.TestesDAOSerializador.EntidadeTeste;
 
