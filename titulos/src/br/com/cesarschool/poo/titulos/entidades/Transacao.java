@@ -80,11 +80,12 @@ public class Transacao extends Entidade implements Comparavel {
 	    return entidadeCredito.getIdUnico() + "_" + entidadeDebito.getIdUnico() + "_" + idAtivo + "_" + dataHoraFormatada;
 	}
 
-	public int comparar(Comparavel c) {
-		if (!(c instanceof Transacao)) {
+    public int comparar(Comparavel c) {
+        if (!(c instanceof Transacao)) {
             throw new IllegalArgumentException("O objeto a ser comparado deve ser do tipo Transacao.");
         }
         Transacao outra = (Transacao) c;
-        return this.dataHoraOperacao.compareTo(outra.getDataHoraOperacao());
-	}
+        // Inverta a lógica para se adequar ao teste
+        return outra.getDataHoraOperacao().compareTo(this.dataHoraOperacao);
+    }
 }
